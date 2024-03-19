@@ -1,10 +1,10 @@
 import React from "react";
 import { Links, Meta, Scripts } from "@remix-run/react";
-import { Layout } from "./components/Layout";
 
 import { RecoilRoot } from "recoil";
 
-import "./index.css";
+import "./index.scss";
+import { MessageBoardContainer } from "./containers/MessageBoardContainer";
 
 export default function App() {
   return (
@@ -16,7 +16,7 @@ export default function App() {
       </head>
       <body className="h-full">
         <RecoilRoot>
-          <Layout />
+          <MessageBoardContainer />
         </RecoilRoot>
         <Scripts />
       </body>

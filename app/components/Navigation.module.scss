@@ -1,0 +1,21 @@
+.navigation {
+  background-color: theme("colors.secondary");
+  box-shadow: 0 0 0 0.1rem rgba(1, 3, 5, 0.02);
+  display: grid;
+  grid-auto-rows: min-content;
+  grid-gap: 1rem;
+  max-width: 20rem;
+  min-width: 15rem;
+  padding: 1.5rem 1rem;
+
+  ul {
+    overflow: hidden;
+  }
+
+  li {
+    overflow: hidden;
+    padding: 0.25rem 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

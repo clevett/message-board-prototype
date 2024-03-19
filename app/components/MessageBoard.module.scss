@@ -1,0 +1,34 @@
+.channel {
+  display: grid;
+  grid-template-rows: 1fr 80px;
+}
+
+.content {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: min-content 1fr;
+  height: 100%;
+  width: 100%;
+}
+
+.header {
+  box-shadow: 0 0 0 0.1rem rgba(1, 3, 5, 0.02);
+  height: 5rem;
+  padding: 1.5rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: 80px minmax(900px, 1fr);
+  height: 100%;
+  width: 100%;
+
+  h2 {
+    color: theme("colors.darkgray");
+    font-family: breve-text, serif;
+    font-size: 36px;
+    font-weight: 400;
+    text-align: left;
+    text-size-adjust: 100%;
+  }
+}
