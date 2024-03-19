@@ -14,7 +14,7 @@ export const MessagePanel = () => {
         <div className="grid gap-2">
           <h2 className="font-bold leading-5 text-xl">{selected.name}</h2>
           <ul>
-            {selected.replies.map((reply) => (
+            {selected.replies?.map((reply) => (
               <li key={`reply-${reply.id}`}>
                 <div className="flex justify-between flex-col">
                   <p className="text-gray-400">

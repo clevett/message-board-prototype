@@ -3,93 +3,72 @@ import { MessageBoard } from "../components/MessageBoard";
 import { RecoilSync } from "recoil-sync";
 import { useRecoilCallback } from "recoil";
 import { channelAtomFamily, channelIDsAtom, userAtom } from "../recoil/atoms";
-import { v4 as uuidv4 } from "uuid";
+
+import { channelsMock, userMock } from "../mocks";
+import { Channel, User } from "../recoil/refine";
+import { set } from "@recoiljs/refine";
+import { RecoilSyncContainer } from "../recoil/RecoilSync";
+
+const getChannels = () =>
+  Promise.resolve(channelsMock.map(({ id, name }) => ({ id, name })));
+
+const getUser = () => Promise.resolve(userMock);
+
+// const getChannels = () => channelsMock.map(({ id, name }) => ({ id, name }));
+// const getUser = () => userMock;
 
 export const MessageBoardContainer = () => {
-  const loggedInUser = {
-    displayName: "Jukka Aho",
-    email: "jukka@example.com",
-    username: "jukka",
-  };
-  const data = [
-    {
-      id: uuidv4(),
-      name: "Consectetur adipiscing elit",
-      replies: [
-        {
-          id: uuidv4(),
-          body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ac lacinia tincidunt, nisl nunc tincidunt nunc, ac tincidunt nunc nunc vitae nunc. Ut vitae nunc vitae nunc",
-          author: "John Doe",
-          timestamp: new Date(),
-        },
-        {
-          id: uuidv4(),
-          body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ac lacinia tincidunt, nisl nunc tincidunt nunc, ac tincidunt nunc nunc vitae nunc. Ut vitae nunc vitae nunc",
-          author: "Jane Smith",
-          timestamp: new Date(),
-        },
-      ],
-    },
-    {
-      id: uuidv4(),
-      name: "Lorem ipsum dolor",
-      replies: [
-        {
-          id: uuidv4(),
-          body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ac lacinia tincidunt, nisl nunc tincidunt nunc, ac tincidunt nunc nunc vitae nunc. Ut vitae nunc vitae nunc",
-          author: "John Doe",
-          timestamp: new Date(),
-        },
-      ],
-    },
-  ];
+  const [isLoading, setIsLoading] = React.useState(true);
 
-  const upliftChannels = useRecoilCallback(
-    ({ set }) =>
-      async () => {
-        const ids = data.map((c) => c.id);
-        set(channelIDsAtom, ids);
-        data.forEach((c) => {
-          set(channelAtomFamily(c.id), c);
-        });
-      },
-    [data]
-  );
+  // const upliftChannels = useRecoilCallback(
+  //   ({ set }) =>
+  //     async (channels: Pick<Channel, "id" | "name">[]) => {
+  //       const ids = channels.map((c) => c.id);
+  //       set(channelIDsAtom, ids);
+  //       channels.forEach((c) => {
+  //         set(channelAtomFamily(c.id), c);
+  //       });
+  //     },
+  //   []
+  // );
 
-  const upliftUser = useRecoilCallback(
-    ({ set }) =>
-      async () => {
-        set(userAtom, loggedInUser);
-      },
-    [loggedInUser]
-  );
+  // const upliftUser = useRecoilCallback(
+  //   ({ set }) =>
+  //     async (user: User) => {
+  //       set(userAtom, user);
+  //     },
+  //   [getUser]
+  // );
+
+  // React.useEffect(() => {
+  //   Promise.all([getChannels(), getUser()]).then(([channels, user]) => {
+  //     upliftChannels(channels);
+  //     upliftUser(user);
+  //     setIsLoading(false);
+  //   });
+  // }, []);
+
+  const [channels, setChannels] = React.useState<Channel[]>([]);
+  const [user, setUser] = React.useState<User | undefined>(undefined);
 
   React.useEffect(() => {
-    upliftChannels();
-    upliftUser();
-  }, [data]);
+    Promise.all([getChannels(), getUser()]).then(([channels, user]) => {
+      setChannels(channels);
+      setUser(user);
+      setIsLoading(false);
+    });
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  const props = { user };
+  channels.forEach((c) => (props[`channel-${c.id}`] = c));
 
   return (
-    <RecoilSync
-      storeKey="init-from-data"
-      read={(itemKey: string | number) => data[itemKey]}
-      write={({ diff }) => {
-        for (const [key, value] of diff) {
-          //connection.set(key, value);
-          console.log({
-            key,
-            value,
-          });
-        }
-      }}
-      //   listen={({ updateItem }) => {
-      //     const subscription = connection.subscribe((key, value) => {
-      //       updateItem(key, value);
-      //     });
-      //     return () => subscription.release();
-      //   }}
-    >
+    <RecoilSyncContainer {...props}>
       <MessageBoard />
-    </RecoilSync>
+    </RecoilSyncContainer>
   );
 };

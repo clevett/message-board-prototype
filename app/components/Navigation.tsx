@@ -5,8 +5,13 @@ import {
   selectedChannelSelector,
 } from "../recoil/selectors";
 import styles from "./Navigation.module.scss";
+import { Channel } from "../recoil/refine";
 
-export const Navigation = () => {
+type NavigationProps = {
+  updateChannel: (id: Channel["id"]) => void;
+};
+
+export const Navigation = ({ updateChannel }: NavigationProps) => {
   const channels = useRecoilValue(channelListSelector);
   const [selected, setSelected] = useRecoilState(selectedChannelSelector);
 
@@ -15,7 +20,15 @@ export const Navigation = () => {
       channel && (
         <li key={channel.id}>
           <button
-            onClick={() => setSelected(channel)}
+            onClick={() => {
+              if (selected?.id === channel.id) return;
+
+              if (!selected?.replies) {
+                updateChannel(channel.id);
+              } else {
+                setSelected(channel);
+              }
+            }}
             className={selected?.id === channel.id ? "font-bold" : ""}
           >
             {channel.name}

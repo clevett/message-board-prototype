@@ -24,7 +24,7 @@ export const Editor = () => {
     const submission = {
       ...selected,
       replies: [
-        ...selected.replies,
+        ...(selected.replies ?? []),
         {
           id: uuidv4(),
           body: message,
