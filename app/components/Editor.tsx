@@ -22,7 +22,7 @@ export const Editor = () => {
   }, [selected?.id]);
 
   const handleSubmit = () => {
-    if (selected === undefined) return;
+    if (selected === undefined || message === "") return;
 
     const newMessage = {
       author: user?.displayName ?? "Anonymous",
@@ -37,9 +37,18 @@ export const Editor = () => {
       messages: [...(selected.messages ?? []), newMessage],
     };
 
-    postMessage(selected.id, newMessage);
-    setSelected(submission);
-    setMessage("");
+    postMessage(selected.id, newMessage).then((response) => {
+      if (!response) {
+        console.error("Failed to post message");
+        return;
+      }
+
+      //This will update the local state with the new message
+      //Alternatively updating local state could be handled by RecoilSync
+      //That would allow for the local state to be updated by the server
+      setSelected(submission);
+      setMessage("");
+    });
   };
 
   return (

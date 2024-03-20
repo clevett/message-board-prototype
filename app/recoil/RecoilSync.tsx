@@ -6,14 +6,10 @@ export const RecoilSyncContainer = ({ children, ...props }) => {
     <RecoilSync
       storeKey="init-from-props"
       read={(itemKey: string | number) => props[itemKey]}
-      write={({ diff }) => {
-        for (const [key, value] of diff) {
-          //Use this to write state changes to the database
-        }
-      }}
       listen={({ updateItem }) => {
         //Use this to subscribe to changes in the database
         //Sync these changes with the local changes in the Recoil store
+        //This will allow users to see changes made by other users
       }}
     >
       {children}

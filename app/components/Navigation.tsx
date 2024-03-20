@@ -18,7 +18,7 @@ export const Navigation = () => {
 
   return (
     <div className={styles.navigation}>
-      <h2 className="font-bold leading-5 text-xl">Messages</h2>
+      <h2 className="font-bold leading-5 text-xl">Channels</h2>
       <ul>{channelList}</ul>
     </div>
   );

@@ -1,17 +1,25 @@
-import { object, string, optional, date, array, Path } from "@recoiljs/refine";
+import {
+  object,
+  string,
+  Checker,
+  optional,
+  date,
+  array,
+} from "@recoiljs/refine";
 
 export type Channel = {
   id: string;
   name: string;
-  messages?: {
-    author: string;
-    body: string;
-    channelId: string;
-    id: string;
-    timestamp: Date;
-  }[];
+  messages?: Message[];
 };
 
+export type Message = {
+  author: string;
+  body: string;
+  id: string;
+  timestamp: Date;
+  channelId: string;
+};
 export type User = {
   displayName: string;
   email: string;
@@ -26,9 +34,9 @@ export const channel = object({
       object({
         author: string(),
         body: string(),
-        channelId: string(),
         id: string(),
         timestamp: date(),
+        channelId: string(),
       })
     )
   ),
@@ -40,18 +48,19 @@ export const user = object({
   username: string(),
 });
 
-export const optionalUserChecker = (value, path) => {
-  if (value === undefined) {
-    return { type: "success", value: undefined, warnings: [] };
-  } else {
-    return user(value, path);
-  }
+export const createOptionalChecker = <T>(
+  checker: Checker<T>
+): Checker<T | undefined> => {
+  return (value, path) => {
+    if (value === undefined) {
+      return { type: "success", value: undefined, warnings: [] };
+    } else {
+      return checker(value, path);
+    }
+  };
 };
 
-export const optionalChannelChecker = (value, path) => {
-  if (value === undefined) {
-    return { type: "success", value: undefined, warnings: [] };
-  } else {
-    return channel(value, path);
-  }
-};
+export const optionalUserChecker: Checker<User | undefined> =
+  createOptionalChecker(user);
+export const optionalChannelChecker: Checker<Channel | undefined> =
+  createOptionalChecker(channel);

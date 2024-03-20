@@ -1,6 +1,8 @@
 .channel {
   display: grid;
   grid-template-rows: 1fr 80px;
+  overflow: hidden;
+  min-height: 500px;
 }
 
 .content {
@@ -17,6 +19,7 @@
   grid-auto-flow: column;
   grid-template-columns: 2fr 1fr;
   height: 5rem;
+  min-height: 80px;
   padding: 1.5rem;
 
   span {
@@ -27,7 +30,7 @@
 
 .layout {
   display: grid;
-  grid-template-rows: 80px minmax(900px, 1fr);
+  grid-template-rows: 80px minmax(500px, 1fr);
   height: 100%;
   width: 100%;
 

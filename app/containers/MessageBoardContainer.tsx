@@ -4,9 +4,15 @@ import { useRecoilCallback } from "recoil";
 import { channelAtomFamily, channelIDsAtom } from "../recoil/atoms";
 import { fetchChannels } from "../helpers/fetch-channels";
 
-import { userMock as user } from "../../mocks";
 import { Channel } from "../recoil/refine";
 import { RecoilSyncContainer } from "../recoil/RecoilSync";
+
+//User for testing
+export const user = {
+  displayName: "Jukka Aho",
+  email: "jukka@example.com",
+  username: "jukka",
+};
 
 export const MessageBoardContainer = () => {
   const [channels, setChannels] = React.useState(undefined);
@@ -38,7 +44,7 @@ export const MessageBoardContainer = () => {
   }
 
   const props = { user };
-  channels.forEach((c) => (props[`channel-${c.id}`] = c));
+  channels.forEach((c: Channel) => (props[`channel-${c.id}`] = c));
 
   return (
     <RecoilSyncContainer children={undefined} {...props}>

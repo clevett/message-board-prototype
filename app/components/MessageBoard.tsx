@@ -9,19 +9,6 @@ import { Navigation } from "./Navigation";
 import logo from "../logo.svg";
 import styles from "./MessageBoard.module.scss";
 
-//  Messages
-// ○ Upon submitting a message to a channel that message is available for other users
-
-// NodeJS Backend
-// ● Channel and message storage can be an in-memory database (global variable etc)
-// ● On server start, storage is populated with a fixed set of empty channels
-// ● GET endpoint for querying channels
-// ○ GET http://<backend>/channels
-// ● GET endpoint for querying channel’s messages
-// ○ GET http://<backend>/messages/<channel>
-// ● POST endpoint for submitting new messages to a channel
-// ○ POST http://<backend>/<channel>
-
 export const MessageBoard = () => {
   const selected = useRecoilValue(selectedChannelIdAtom);
   const user = useRecoilValue(userAtom);

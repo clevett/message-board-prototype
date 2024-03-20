@@ -1,17 +1,21 @@
-export const postMessage = async (id, message) => {
+import { Channel, Message } from "../recoil/refine";
+
+export const postMessage = async (
+  channelId: Channel["id"],
+  message: Message
+) => {
   try {
-    const res = await fetch(`/api/v1/messages/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    const response = await fetch(`/api/v1/${channelId}`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message }),
     });
-    if (!res.ok) {
-      throw new Error("Failed to fetch messages");
+
+    if (!response.ok) {
+      throw new Error("Failed to post message");
     }
-    const data = await res.json();
-    return data;
+
+    return response.ok;
   } catch (err) {
     return console.error("error in fetching messages: ", err);
   }

@@ -3,8 +3,9 @@
   font-family: cera-pro, sans-serif;
   font-size: 16px;
   line-height: 19px;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   vertical-align: baseline;
+  overflow: auto;
 
   h2 {
     margin-bottom: 2rem;
@@ -21,4 +22,7 @@
   border: 2px solid theme("colors.secondary");
   padding: 0.5rem 1rem;
   margin: 0.5rem 0;
+
+  text-wrap: wrap;
+  word-break: break-word;
 }
