@@ -1,13 +1,11 @@
-import React from "react";
-import { MessageBoard } from "../components/MessageBoard";
-import { useRecoilCallback } from "recoil";
+import { Channel } from "../recoil/refine";
 import { channelAtomFamily, channelIDsAtom } from "../recoil/atoms";
 import { fetchChannels } from "../helpers/fetch-channels";
-
-import { Channel } from "../recoil/refine";
+import { MessageBoard } from "../components/MessageBoard";
 import { RecoilSyncContainer } from "../recoil/RecoilSync";
+import { useRecoilCallback } from "recoil";
+import React from "react";
 
-//User for testing
 export const user = {
   displayName: "Jukka Aho",
   email: "jukka@example.com",

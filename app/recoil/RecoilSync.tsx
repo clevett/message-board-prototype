@@ -8,8 +8,8 @@ export const RecoilSyncContainer = ({ children, ...props }) => {
       read={(itemKey: string | number) => props[itemKey]}
       listen={({ updateItem }) => {
         //Use this to subscribe to changes in the database
-        //Sync these changes with the local changes in the Recoil store
-        //This will allow users to see changes made by other users
+        //Sync these changes with the local state in the Recoil store
+        //This will allow users to see submissions made by other users
       }}
     >
       {children}

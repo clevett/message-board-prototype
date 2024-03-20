@@ -1,12 +1,10 @@
-import React from "react";
-
-import { useRecoilValue } from "recoil";
-import { selectedChannelIdAtom, userAtom } from "../recoil/atoms";
-
 import { Editor } from "./Editor";
 import { MessagePanel } from "./MessagePanel";
 import { Navigation } from "./Navigation";
+import { selectedChannelIdAtom, userAtom } from "../recoil/atoms";
+import { useRecoilValue } from "recoil";
 import logo from "../logo.svg";
+import React from "react";
 import styles from "./MessageBoard.module.scss";
 
 export const MessageBoard = () => {

@@ -1,10 +1,8 @@
-import React from "react";
-
-import { useRecoilValue } from "recoil";
-import { selectedChannelSelector } from "../recoil/selectors";
-
-import styles from "./MessagePanel.module.scss";
 import { messagesLoading } from "../recoil/atoms";
+import { selectedChannelSelector } from "../recoil/selectors";
+import { useRecoilValue } from "recoil";
+import React from "react";
+import styles from "./MessagePanel.module.scss";
 
 export const MessagePanel = () => {
   const selected = useRecoilValue(selectedChannelSelector);

@@ -1,16 +1,11 @@
-import React from "react";
-
-import { useRecoilState, useRecoilValue } from "recoil";
+import { Channel } from "../recoil/refine";
+import { postMessage } from "../helpers/post-message";
 import { selectedChannelSelector } from "../recoil/selectors";
 import { userAtom } from "../recoil/atoms";
-
+import { useRecoilState, useRecoilValue } from "recoil";
 import { v4 as uuidv4 } from "uuid";
-
+import React from "react";
 import styles from "./Editor.module.scss";
-
-import { postMessage } from "../helpers/post-message";
-import { Channel } from "../recoil/refine";
-
 export const Editor = () => {
   const user = useRecoilValue(userAtom);
   const [selected, setSelected] = useRecoilState(selectedChannelSelector);
@@ -32,6 +27,9 @@ export const Editor = () => {
       timestamp: new Date(),
     };
 
+    //Simple solution for prototype
+    //In a real application, setup an Atom Family for messages
+    //This would reduce rerenders for other components and provide better type safety
     const submission: Channel = {
       ...selected,
       messages: [...(selected.messages ?? []), newMessage],

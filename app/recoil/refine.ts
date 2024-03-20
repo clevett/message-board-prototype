@@ -1,10 +1,10 @@
 import {
-  object,
-  string,
-  Checker,
-  optional,
-  date,
   array,
+  Checker,
+  date,
+  object,
+  optional,
+  string,
 } from "@recoiljs/refine";
 
 export type Channel = {
@@ -16,9 +16,9 @@ export type Channel = {
 export type Message = {
   author: string;
   body: string;
+  channelId: string;
   id: string;
   timestamp: Date;
-  channelId: string;
 };
 export type User = {
   displayName: string;

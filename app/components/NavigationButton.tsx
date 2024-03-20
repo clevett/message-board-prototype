@@ -1,16 +1,12 @@
-import React from "react";
-
+import { Channel } from "../recoil/refine";
+import { fetchMessages } from "../helpers/fetch-messages";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   channelAtomFamily,
   messagesLoading,
   selectedChannelIdAtom,
 } from "../recoil/atoms";
-
-import { Channel } from "../recoil/refine";
-
-import { fetchMessages } from "../helpers/fetch-messages";
-
+import React from "react";
 export const NavigationButton = ({ id }) => {
   const [selectedId, setSelectedId] = useRecoilState(selectedChannelIdAtom);
   const [channel, setChannel] = useRecoilState(channelAtomFamily(id));

@@ -1,9 +1,8 @@
-import React from "react";
-import { useRecoilValue } from "recoil";
 import { channelListSelector } from "../recoil/selectors";
-import styles from "./Navigation.module.scss";
 import { NavigationButton } from "./NavigationButton";
-
+import { useRecoilValue } from "recoil";
+import React from "react";
+import styles from "./Navigation.module.scss";
 export const Navigation = () => {
   const channels = useRecoilValue(channelListSelector);
 
