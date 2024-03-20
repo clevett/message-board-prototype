@@ -1,38 +1,17 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  channelListSelector,
-  selectedChannelSelector,
-} from "../recoil/selectors";
+import { useRecoilValue } from "recoil";
+import { channelListSelector } from "../recoil/selectors";
 import styles from "./Navigation.module.scss";
-import { Channel } from "../recoil/refine";
+import { NavigationButton } from "./NavigationButton";
 
-type NavigationProps = {
-  updateChannel: (id: Channel["id"]) => void;
-};
-
-export const Navigation = ({ updateChannel }: NavigationProps) => {
+export const Navigation = () => {
   const channels = useRecoilValue(channelListSelector);
-  const [selected, setSelected] = useRecoilState(selectedChannelSelector);
 
   const channelList = channels.map(
     (channel) =>
       channel && (
         <li key={channel.id}>
-          <button
-            onClick={() => {
-              if (selected?.id === channel.id) return;
-
-              if (!selected?.replies) {
-                updateChannel(channel.id);
-              } else {
-                setSelected(channel);
-              }
-            }}
-            className={selected?.id === channel.id ? "font-bold" : ""}
-          >
-            {channel.name}
-          </button>
+          <NavigationButton id={channel.id} />
         </li>
       )
   );

@@ -5,17 +5,18 @@ import {
   Checker,
   optional,
   date,
+  array,
 } from "@recoiljs/refine";
 
 export type Channel = {
   id: string;
   name: string;
-  replies?: {
+  messages?: {
     author: string;
     body: string;
     id: string;
     timestamp: Date;
-  };
+  }[];
 };
 
 export type User = {
@@ -27,13 +28,15 @@ export type User = {
 export const channel = object({
   id: string(),
   name: string(),
-  replies: optional(
-    object({
-      author: string(),
-      body: string(),
-      id: string(),
-      timestamp: date(),
-    })
+  messages: optional(
+    array(
+      object({
+        author: string(),
+        body: string(),
+        id: string(),
+        timestamp: date(),
+      })
+    )
   ),
 });
 

@@ -1,25 +1,29 @@
 import React from "react";
 
 import { useRecoilValue } from "recoil";
-import { selectedChannelAtom, userAtom } from "../recoil/atoms";
+import { selectedChannelIdAtom, userAtom } from "../recoil/atoms";
 
 import { Editor } from "./Editor";
 import { MessagePanel } from "./MessagePanel";
-import { NavigationContainer } from "../containers/NavigationContainer";
+import { Navigation } from "./Navigation";
 import logo from "../logo.svg";
 import styles from "./MessageBoard.module.scss";
 
-// ● State
-// ○ Channel list
-//  ■ Channel list is loaded once on loading the application
-// ○ Selected channel and messages
-//  ■ There is no upfront loading of messages
-//  ■ Messages already in local state are showed immediately
-//  ■ Messages are loaded from remote on channel selection and updated to screen
-//  ■ Messages are also stored to local state after loading the from remote
+//  Messages
+// ○ Upon submitting a message to a channel that message is available for other users
+
+// NodeJS Backend
+// ● Channel and message storage can be an in-memory database (global variable etc)
+// ● On server start, storage is populated with a fixed set of empty channels
+// ● GET endpoint for querying channels
+// ○ GET http://<backend>/channels
+// ● GET endpoint for querying channel’s messages
+// ○ GET http://<backend>/messages/<channel>
+// ● POST endpoint for submitting new messages to a channel
+// ○ POST http://<backend>/<channel>
 
 export const MessageBoard = () => {
-  const selected = useRecoilValue(selectedChannelAtom);
+  const selected = useRecoilValue(selectedChannelIdAtom);
   const user = useRecoilValue(userAtom);
 
   return (
@@ -30,7 +34,7 @@ export const MessageBoard = () => {
           <span>{user?.displayName}</span>
         </header>
         <div className={styles.content}>
-          <NavigationContainer />
+          <Navigation />
           <div className={styles.channel}>
             <MessagePanel />
             {selected && <Editor />}

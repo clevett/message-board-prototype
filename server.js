@@ -1,6 +1,8 @@
 import { createRequestHandler } from "@remix-run/express";
 import express from "express";
 
+import { getChannels, getMessages, getUser } from "./mocks.js";
+
 const viteDevServer =
   process.env.NODE_ENV === "production"
     ? null
@@ -14,6 +16,34 @@ const app = express();
 app.use(
   viteDevServer ? viteDevServer.middlewares : express.static("build/client")
 );
+
+// app.use("/api/v1/channels", (req, res, next) => {
+//   next();
+// });
+
+app.get("/api/v1/channels", async (req, res) => {
+  await getChannels().then((data) => res.send(data));
+});
+
+// app.use("/api/v1/messages/:channelId", (req, res, next) => {
+//   next();
+// });
+
+app.get("/api/v1/messages/:channelId", async (req, res) => {
+  const channelId = req.params.channelId;
+  await getMessages(channelId).then((data) => res.send(data));
+});
+
+app.post("/api/v1/messages/:channelId", (req, res) => {
+  const channelId = req.params.channelId;
+  const message = req.body;
+  console.table({
+    channelId,
+    message,
+  });
+
+  //res.send("message sent");
+});
 
 const build = viteDevServer
   ? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")

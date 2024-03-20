@@ -7,14 +7,19 @@ import {
 } from "./refine";
 import { syncEffect } from "recoil-sync";
 
-export const selectedChannelAtom = atom<Channel["id"] | undefined>({
-  key: "selectedChannelAtom",
+export const selectedChannelIdAtom = atom<Channel["id"] | undefined>({
+  key: "selectedChannelIdAtom",
   default: undefined,
 });
 
 export const channelIDsAtom = atom<string[]>({
   key: "channelIDsAtom",
   default: [],
+});
+
+export const messagesLoading = atom({
+  key: "messagesLoading",
+  default: false,
 });
 
 export const channelAtomFamily = atomFamily<Channel | undefined, string>({

@@ -2,7 +2,7 @@ import { DefaultValue, selector } from "recoil";
 import {
   channelAtomFamily,
   channelIDsAtom,
-  selectedChannelAtom,
+  selectedChannelIdAtom as selectedIdAtom,
 } from "./atoms";
 
 export const channelListSelector = selector({
@@ -17,16 +17,14 @@ export const channelListSelector = selector({
 export const selectedChannelSelector = selector({
   key: "selectedChannelSelector",
   get: ({ get }) => {
-    const id = get(selectedChannelAtom);
+    const id = get(selectedIdAtom);
     return id ? get(channelAtomFamily(id)) : undefined;
   },
   set: ({ set }, newValue) => {
     if (newValue instanceof DefaultValue) {
-      set(selectedChannelAtom, newValue);
+      set(selectedIdAtom, newValue);
       return;
     }
-
-    set(selectedChannelAtom, newValue?.id);
 
     if (newValue) {
       set(channelAtomFamily(newValue.id), newValue);

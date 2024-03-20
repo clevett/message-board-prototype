@@ -1,31 +1,13 @@
 import React from "react";
 import { RecoilSync } from "recoil-sync";
-import { Channel, User } from "./refine";
 
-type RecoilSyncContainerProps = {
-  //   channels: Pick<Channel, "id" | "name">[];
-  user: User;
-  children: React.ReactNode;
-};
-
-export const RecoilSyncContainer = ({
-  children,
-  ...props
-}: RecoilSyncContainerProps) => {
+export const RecoilSyncContainer = ({ children, ...props }) => {
   return (
     <RecoilSync
       storeKey="init-from-props"
-      read={(itemKey: string | number) => {
-        console.table({
-          label: "Read",
-          itemKey,
-          value: props[itemKey],
-        });
-        return props[itemKey];
-      }}
+      read={(itemKey: string | number) => props[itemKey]}
       write={({ diff }) => {
         for (const [key, value] of diff) {
-          //connection.set(key, value);
           console.log("DIFF", {
             key,
             value,
@@ -33,6 +15,7 @@ export const RecoilSyncContainer = ({
         }
       }}
       listen={({ updateItem }) => {
+        //console.log("LISTEN", updateItem);
         // const subscription = connection.subscribe((key, value) => {
         //   updateItem(key, value);
         // });
