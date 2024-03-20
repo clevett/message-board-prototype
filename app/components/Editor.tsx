@@ -2,30 +2,14 @@ import React from "react";
 
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedChannelSelector } from "../recoil/selectors";
+import { userAtom } from "../recoil/atoms";
 
 import { v4 as uuidv4 } from "uuid";
 
 import styles from "./Editor.module.scss";
-import { userAtom } from "../recoil/atoms";
 
-export const postMessage = async (id, message) => {
-  try {
-    const res = await fetch(`/api/v1/messages/${id}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message }),
-    });
-    if (!res.ok) {
-      throw new Error("Failed to fetch messages");
-    }
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    return console.error("error in fetching messages: ", err);
-  }
-};
+import { postMessage } from "../helpers/post-message";
+import { Channel } from "../recoil/refine";
 
 export const Editor = () => {
   const user = useRecoilValue(userAtom);
@@ -41,19 +25,19 @@ export const Editor = () => {
     if (selected === undefined) return;
 
     const newMessage = {
-      id: uuidv4(),
-      body: message,
-      timestamp: new Date(),
       author: user?.displayName ?? "Anonymous",
+      body: message,
+      channelId: selected.id,
+      id: uuidv4(),
+      timestamp: new Date(),
     };
 
-    const submission = {
+    const submission: Channel = {
       ...selected,
       messages: [...(selected.messages ?? []), newMessage],
     };
 
-    postMessage(selected.id, message);
-
+    postMessage(selected.id, newMessage);
     setSelected(submission);
     setMessage("");
   };
@@ -64,8 +48,19 @@ export const Editor = () => {
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Type a new message"
         value={message}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit();
+          }
+        }}
       />
-      <button className={styles.btn} disabled={!message} onClick={handleSubmit}>
+      <button
+        className={styles.btn}
+        disabled={!message}
+        onClick={handleSubmit}
+        type="submit"
+      >
         Submit
       </button>
     </div>

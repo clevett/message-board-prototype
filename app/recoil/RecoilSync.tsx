@@ -8,18 +8,12 @@ export const RecoilSyncContainer = ({ children, ...props }) => {
       read={(itemKey: string | number) => props[itemKey]}
       write={({ diff }) => {
         for (const [key, value] of diff) {
-          console.log("DIFF", {
-            key,
-            value,
-          });
+          //Use this to write state changes to the database
         }
       }}
       listen={({ updateItem }) => {
-        //console.log("LISTEN", updateItem);
-        // const subscription = connection.subscribe((key, value) => {
-        //   updateItem(key, value);
-        // });
-        // return () => subscription.release();
+        //Use this to subscribe to changes in the database
+        //Sync these changes with the local changes in the Recoil store
       }}
     >
       {children}

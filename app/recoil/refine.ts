@@ -1,12 +1,4 @@
-import {
-  object,
-  string,
-  number,
-  Checker,
-  optional,
-  date,
-  array,
-} from "@recoiljs/refine";
+import { object, string, optional, date, array, Path } from "@recoiljs/refine";
 
 export type Channel = {
   id: string;
@@ -14,6 +6,7 @@ export type Channel = {
   messages?: {
     author: string;
     body: string;
+    channelId: string;
     id: string;
     timestamp: Date;
   }[];
@@ -33,6 +26,7 @@ export const channel = object({
       object({
         author: string(),
         body: string(),
+        channelId: string(),
         id: string(),
         timestamp: date(),
       })
@@ -46,7 +40,7 @@ export const user = object({
   username: string(),
 });
 
-export const optionalUserChecker: Checker<User | undefined> = (value, path) => {
+export const optionalUserChecker = (value, path) => {
   if (value === undefined) {
     return { type: "success", value: undefined, warnings: [] };
   } else {
@@ -54,10 +48,7 @@ export const optionalUserChecker: Checker<User | undefined> = (value, path) => {
   }
 };
 
-export const optionalChannelChecker: Checker<Channel | undefined> = (
-  value,
-  path
-) => {
+export const optionalChannelChecker = (value, path) => {
   if (value === undefined) {
     return { type: "success", value: undefined, warnings: [] };
   } else {

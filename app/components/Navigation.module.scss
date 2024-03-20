@@ -15,7 +15,14 @@
   li {
     overflow: hidden;
     padding: 0.25rem 2px;
+    margin-left: 5px;
+  }
+
+  button {
+    overflow: hidden;
+    text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
   }
 }
