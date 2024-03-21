@@ -28,7 +28,7 @@ export const Editor = () => {
     };
 
     //Simple solution for prototype
-    //In a real application, setup an Atom Family for messages
+    //In a production application, setup an Atom Family for messages
     //This would reduce rerenders for other components and provide better type safety
     const submission: Channel = {
       ...selected,
