@@ -3,9 +3,9 @@
   font-family: cera-pro, sans-serif;
   font-size: 16px;
   line-height: 19px;
+  overflow: auto;
   padding: 1.5rem 1rem;
   vertical-align: baseline;
-  overflow: auto;
 
   h2 {
     margin-bottom: 2rem;
@@ -25,4 +25,18 @@
 
   text-wrap: wrap;
   word-break: break-word;
+}
+
+.author {
+  color: theme("colors.darkgray");
+  margin-right: 0.25rem;
+}
+
+.center {
+  align-items: center;
+  color: theme("colors.darkgray");
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
 }

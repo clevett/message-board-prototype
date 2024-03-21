@@ -17,8 +17,8 @@ export const MessagePanel = () => {
             {selected.messages?.map((reply) => (
               <li key={`reply-${reply.id}`}>
                 <div className="flex justify-between flex-col">
-                  <p className="text-gray-400">
-                    {reply.author} ({reply.timestamp.toLocaleString()})
+                  <p>
+                    <span className={styles.author}>{reply.author} </span>
                   </p>
                   <p className={styles.reply}>{reply.body}</p>
                 </div>
@@ -27,7 +27,10 @@ export const MessagePanel = () => {
           </ul>
         </div>
       )}
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <div className={styles.center}>Loading...</div>}
+      {!selected && !isLoading && (
+        <div className={styles.center}>Select a channel to view messages</div>
+      )}
     </div>
   );
 };
