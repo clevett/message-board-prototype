@@ -24,7 +24,7 @@ export const Editor = () => {
       body: message,
       channelId: selected.id,
       id: uuidv4(),
-      timestamp: new Date(), //Consider using a server timestamp to ensure consistency
+      timestamp: new Date(),
     };
 
     //Simple solution for prototype
