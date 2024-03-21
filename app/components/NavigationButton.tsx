@@ -25,7 +25,7 @@ export const NavigationButton = ({ id }) => {
       if (messages) {
         setChannel({ ...channel, messages });
       } else {
-        console.error("Failed to load channel");
+        console.error("Failed to add messages");
       }
 
       setIsLoading(false);
