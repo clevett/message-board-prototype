@@ -23,6 +23,10 @@
     text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 100%;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      border-color: theme("colors.primary");
+    }
   }
 }
