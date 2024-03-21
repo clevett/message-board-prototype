@@ -37,6 +37,7 @@ export const Editor = () => {
 
     postMessage(selected.id, newMessage).then((response) => {
       if (!response) {
+        //Add user feedback here perhaps a toast or alert
         console.error("Failed to post message");
         return;
       }
