@@ -1,12 +1,12 @@
-#Message board prototype with React and NodeJS
+# Message board prototype with React and NodeJS
 
 This was a coding exercise for an interview. The interview process was ended after this submission so fork at your own risk. ;) I am uploading the project as an example of using Recoil and Recoil Sync for managing state.
 
-#Project
+# Project
 
 Prototype a message board for in-house use.
 
-#Requirements
+# Requirements
 
 - Message board of multiple named channels.
 - Users can select a channel from a list of channels
