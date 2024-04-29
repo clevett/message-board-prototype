@@ -3,7 +3,7 @@ import { MessagePanel } from "./MessagePanel";
 import { Navigation } from "./Navigation";
 import { selectedChannelIdAtom, userAtom } from "../recoil/atoms";
 import { useRecoilValue } from "recoil";
-import logo from "../logo.svg";
+import logo from "../logo.png";
 import React from "react";
 import styles from "./MessageBoard.module.scss";
 
@@ -15,7 +15,7 @@ export const MessageBoard = () => {
     <div className="h-full">
       <div className={styles.layout}>
         <header className={styles.header}>
-          <img src={logo} className="App-logo" alt="AlphaSense" />
+          <img src={logo} alt="Emerald Productions logo" />
           <span>{user?.displayName}</span>
         </header>
         <div className={styles.content}>

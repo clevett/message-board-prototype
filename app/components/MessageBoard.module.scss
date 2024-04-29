@@ -19,18 +19,25 @@
   grid-auto-flow: column;
   grid-template-columns: 2fr 1fr;
   height: 5rem;
-  min-height: 80px;
-  padding: 1.5rem;
+  min-height: 50px;
+  overflow: hidden;
+  padding: 0.5rem 1rem;
+
+  img {
+    height: 100%;
+    overflow: hidden;
+  }
 
   span {
-    text-align: right;
+    align-self: center;
     font-weight: 700;
+    text-align: right;
   }
 }
 
 .layout {
   display: grid;
-  grid-template-rows: 80px minmax(500px, 1fr);
+  grid-template-rows: auto minmax(500px, 1fr);
   height: 100%;
   width: 100%;
 

@@ -1,11 +1,10 @@
 {
-  "name": "alphasense-message-board",
+  "name": "message-board-prototype",
   "version": "1.0.0",
   "description": "Prototype message board for in-house use",
   "main": "vite.config.js",
   "scripts": {
-    "dev": "node ./server.js",
-    "start": "cross-env NODE_ENV=production node ./server.js"
+    "start": "node ./server.js"
   },
   "author": "",
   "license": "ISC",
